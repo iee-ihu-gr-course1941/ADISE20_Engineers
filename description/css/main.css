@@ -1,0 +1,47 @@
+* {
+	border: 0;
+    padding: 0;
+	background: #500000;
+
+}
+
+#bg {
+    background-color: white;
+    position: absolute;
+    max-height: 20vw;
+    max-width: 20vw;
+    display: inline;
+    margin-top: 1vw;
+    margin-left: 3vw;
+   
+  }
+
+#text {
+    color: rgba(236, 232, 234, 0.849);
+    margin-top: 8vw;
+     margin-left: 30vw;
+    margin-right: 25vw;
+     
+     font-size: 2.2vh; 
+
+}
+
+ul { 
+    font-size: 2.5vh;
+    font-weight: bold;
+}
+
+li {
+    font-size: 2.2vh;
+    font-weight: normal;
+}
+
+.footer {
+    color: white;
+    cursor: default;
+    height: 3em;
+    left: 0;
+    line-height: 8em;
+    text-align: center;
+    width: 100%;
+}

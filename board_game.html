@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect 4 - Online Multiplayer Board Game</title>
+    <link rel="stylesheet" type="text/css" href="board game/css/main.css" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" />
+</head>
+
+<body>
+  
+    <div id="game-board">
+        <div class="column" id="column-0" data-x="0">
+            <svg height="100" width="100" class="row-5" id="topleft">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-4 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-3 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-2 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-1 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-0 rowcolor" id="bottomleft">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+        </div>
+        <div class="column" id="column-1" data-x="1">
+            <svg height="100" width="100" class="row-5 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-4 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-3 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-2 rowcolor">
+                <circle cx="50" cy="50" r="40" class=" free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-1 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-0 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+        </div>
+        <div class="column" id="column-2" data-x="2">
+            <svg height="100" width="100" class="row-5 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-4 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-3 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-2 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-1 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-0 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+        </div>
+        <div class="column" id="column-3" data-x="3">
+            <svg height="100" width="100" class="row-5 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-4 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-3 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-2 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-1 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-0 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+        </div>
+        <div class="column" id="column-4" data-x="4">
+            <svg height="100" width="100" class="row-5 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-4 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-3 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-2 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-1 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-0 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+        </div>
+        <div class="column" id="column-5" data-x="5">
+            <svg height="100" width="100" class="row-5 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-4 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-3 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-2 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-1 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-0 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+        </div>
+        <div class="column" id="column-6" data-x="6">
+            <svg height="100" width="100" class="row-5" id="topright">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-4 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-3 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-2 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-1 rowcolor">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+            <svg height="100" width="100" class="row-0" id="bottomright">
+                <circle cx="50" cy="50" r="40" class="free stroke" />
+            </svg>
+        </div>
+		<!-- Footer -->
+    <div class="footer"> <span class="copyright"><i class="fab fa-creative-commons"></i> The Standing Mile - Lefteris PG - John - Tom. All rights reserved. 
+      </span> </div>
+    </div>
+	
+	
+</body>
+
+</html>

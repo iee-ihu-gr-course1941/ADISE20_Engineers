@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,900");
+@import url("fontawesome-all.min.css");
+
+* {
+	border: 0;
+    padding: 0;
+	background: #500000;
+
+}
+
+.stroke {
+
+    stroke: #E0AA3E;
+    stroke-width: 3;
+    
+}
+
+
+
+.rowcolor{
+ background-color: #D2AC47;
+}
+
+#topleft {
+	border-radius: 15% 0 0 0;
+	background-color: #D2AC47;
+}
+#topright {
+	border-radius:  0 15% 0 0;
+	background-color: #D2AC47;
+}
+#bottomleft {
+	border-radius:  0 0 0 15%;
+	background-color: #D2AC47;
+}
+#bottomright {
+	border-radius:  0 0 15% 0;
+	background-color: #D2AC47;
+}
+#game-board {
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	/*left: 30.6vw;
+    bottom: 20vh;*/
+    width: 730px;
+    cursor: pointer;
+	position: absolute;
+	}
+
+.column {
+       
+	width: 100px;
+	display: inline-block;
+}
+
+.column circle.free{
+	fill: white ;
+}
+
+circle.free:hover {
+	fill: #67c7eb;
+}
+
+.footer {
+    color: white;
+    cursor: default;
+    height: 3em;
+    left: 0;
+    line-height: 8em;
+    text-align: center;
+    width: 100%;
+}
