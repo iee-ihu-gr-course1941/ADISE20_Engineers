@@ -54,12 +54,12 @@
 	display: inline-block;
 }
 
-.column circle.free{
-	fill: white ;
+.column:hover circle.free{
+	fill: #67c7eb ;
 }
 
-circle.free:hover {
-	fill: #67c7eb;
+circle.free {
+	fill: white;
 }
 
 .footer {
