@@ -217,7 +217,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `test_move` */;
+/*!50003 DROP PROCEDURE IF EXISTS `place_piece` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -227,13 +227,19 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `test_move`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `place_piece`(x1 int,y1 int, id int)
 BEGIN
-SELECT * FROM
-board B1 INNER JOIN board B2
-WHERE B1.x=2 AND B1.y=2
-AND (B2.`s_color` IS NULL OR B2.`s_color`<>B1.`s_color`)
-AND B1.x=B2.x AND B1.y<B2.y AND (B2.y-B1.y)<=2 ;
+	declare  p_color char;
+	
+if(select s_color from board where x = x1 and y = y1)IS NULL THEN
+	select p_turn into  p_color FROM `game_status` WHERE `gameid` = id;
+	
+	update board
+	set s_color=p_color
+	where x=x1 and y=y1;
+	update game_status set p_turn=if(p_color='R','Y','R');
+END IF;	
+
     END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -250,4 +256,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-25 12:08:22
+-- Dump completed on 2020-12-25 22:24:39
