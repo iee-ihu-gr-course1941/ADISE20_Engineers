@@ -26,7 +26,10 @@ CREATE TABLE `board` (
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL,
   `s_color` enum('R','Y') COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`x`,`y`)
+  `gameid` int(11) NOT NULL,
+  PRIMARY KEY (`x`,`y`),
+  KEY `gameid` (`gameid`),
+  CONSTRAINT `board_ibfk_1` FOREIGN KEY (`gameid`) REFERENCES `game` (`gameid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -36,7 +39,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
-INSERT INTO `board` VALUES (1,1,NULL),(1,2,NULL),(1,3,NULL),(1,4,NULL),(1,5,NULL),(1,6,NULL),(1,7,NULL),(2,1,NULL),(2,2,NULL),(2,3,NULL),(2,4,NULL),(2,5,NULL),(2,6,NULL),(2,7,NULL),(3,1,NULL),(3,2,NULL),(3,3,NULL),(3,4,NULL),(3,5,NULL),(3,6,NULL),(3,7,NULL),(4,1,NULL),(4,2,NULL),(4,3,NULL),(4,4,NULL),(4,5,NULL),(4,6,NULL),(4,7,NULL),(5,1,NULL),(5,2,NULL),(5,3,NULL),(5,4,NULL),(5,5,NULL),(5,6,NULL),(5,7,NULL),(6,1,NULL),(6,2,NULL),(6,3,NULL),(6,4,NULL),(6,5,NULL),(6,6,NULL),(6,7,NULL);
+INSERT INTO `board` VALUES (1,1,NULL,0),(1,2,NULL,0),(1,3,NULL,0),(1,4,NULL,0),(1,5,NULL,0),(1,6,NULL,0),(1,7,NULL,0),(2,1,NULL,0),(2,2,NULL,0),(2,3,NULL,0),(2,4,NULL,0),(2,5,NULL,0),(2,6,NULL,0),(2,7,NULL,0),(3,1,NULL,0),(3,2,NULL,0),(3,3,NULL,0),(3,4,NULL,0),(3,5,NULL,0),(3,6,NULL,0),(3,7,NULL,0),(4,1,NULL,0),(4,2,NULL,0),(4,3,NULL,0),(4,4,NULL,0),(4,5,NULL,0),(4,6,NULL,0),(4,7,NULL,0),(5,1,NULL,0),(5,2,NULL,0),(5,3,NULL,0),(5,4,NULL,0),(5,5,NULL,0),(5,6,NULL,0),(5,7,NULL,0),(6,1,NULL,0),(6,2,NULL,0),(6,3,NULL,0),(6,4,NULL,0),(6,5,NULL,0),(6,6,NULL,0),(6,7,NULL,0);
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -111,6 +114,7 @@ CREATE TABLE `game_status` (
 
 LOCK TABLES `game_status` WRITE;
 /*!40000 ALTER TABLE `game_status` DISABLE KEYS */;
+INSERT INTO `game_status` VALUES ('',NULL,NULL,'2020-12-10 18:22:11',0);
 /*!40000 ALTER TABLE `game_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,6 +143,7 @@ CREATE TABLE `players` (
 
 LOCK TABLES `players` WRITE;
 /*!40000 ALTER TABLE `players` DISABLE KEYS */;
+INSERT INTO `players` VALUES (NULL,'R',NULL,'2020-12-12 20:12:17',0),(NULL,'Y',NULL,'2020-12-12 20:12:17',0);
 /*!40000 ALTER TABLE `players` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,4 +160,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-24 23:50:45
+-- Dump completed on 2020-12-25  2:30:23
