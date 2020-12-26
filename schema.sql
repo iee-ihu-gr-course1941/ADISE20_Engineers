@@ -54,6 +54,7 @@ CREATE TABLE `board_empty` (
   `x` int(11) NOT NULL,
   `y` int(11) NOT NULL,
   `s_color` enum('R','Y') COLLATE utf8_bin DEFAULT NULL,
+  `gameid` int(11) NOT NULL,
   PRIMARY KEY (`x`,`y`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -64,7 +65,7 @@ CREATE TABLE `board_empty` (
 
 LOCK TABLES `board_empty` WRITE;
 /*!40000 ALTER TABLE `board_empty` DISABLE KEYS */;
-INSERT INTO `board_empty` VALUES (1,1,NULL),(1,2,NULL),(1,3,NULL),(1,4,NULL),(1,5,NULL),(1,6,NULL),(1,7,NULL),(2,1,NULL),(2,2,NULL),(2,3,NULL),(2,4,NULL),(2,5,NULL),(2,6,NULL),(2,7,NULL),(3,1,NULL),(3,2,NULL),(3,3,NULL),(3,4,NULL),(3,5,NULL),(3,6,NULL),(3,7,NULL),(4,1,NULL),(4,2,NULL),(4,3,NULL),(4,4,NULL),(4,5,NULL),(4,6,NULL),(4,7,NULL),(5,1,NULL),(5,2,NULL),(5,3,NULL),(5,4,NULL),(5,5,NULL),(5,6,NULL),(5,7,NULL),(6,1,NULL),(6,2,NULL),(6,3,NULL),(6,4,NULL),(6,5,NULL),(6,6,NULL),(6,7,NULL);
+INSERT INTO `board_empty` VALUES (1,1,NULL,0),(1,2,NULL,0),(1,3,NULL,0),(1,4,NULL,0),(1,5,NULL,0),(1,6,NULL,0),(1,7,NULL,0),(2,1,NULL,0),(2,2,NULL,0),(2,3,NULL,0),(2,4,NULL,0),(2,5,NULL,0),(2,6,NULL,0),(2,7,NULL,0),(3,1,NULL,0),(3,2,NULL,0),(3,3,NULL,0),(3,4,NULL,0),(3,5,NULL,0),(3,6,NULL,0),(3,7,NULL,0),(4,1,NULL,0),(4,2,NULL,0),(4,3,NULL,0),(4,4,NULL,0),(4,5,NULL,0),(4,6,NULL,0),(4,7,NULL,0),(5,1,NULL,0),(5,2,NULL,0),(5,3,NULL,0),(5,4,NULL,0),(5,5,NULL,0),(5,6,NULL,0),(5,7,NULL,0),(6,1,NULL,0),(6,2,NULL,0),(6,3,NULL,0),(6,4,NULL,0),(6,5,NULL,0),(6,6,NULL,0),(6,7,NULL,0);
 /*!40000 ALTER TABLE `board_empty` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -114,7 +115,7 @@ CREATE TABLE `game_status` (
 
 LOCK TABLES `game_status` WRITE;
 /*!40000 ALTER TABLE `game_status` DISABLE KEYS */;
-INSERT INTO `game_status` VALUES ('',NULL,NULL,'2020-12-10 18:22:11',0);
+INSERT INTO `game_status` VALUES ('not active',NULL,NULL,'2020-12-26 22:21:51',0);
 /*!40000 ALTER TABLE `game_status` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -190,33 +191,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `move_piece` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `move_piece`(x1 int,y1 int, x2 int, y2 int)
-BEGIN
-	declare  p_color char;
-	
-	select   s_color into  p_color FROM `board` WHERE X=x1 AND Y=y1;
-	
-	update board
-	set s_color=p_color
-	where x=x2 and y=y2;
-	update game_status set p_turn=if(p_color='R','Y','R');
-	
-    END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `place_piece` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -227,20 +201,72 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `place_piece`(x1 int,y1 int, id int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `place_piece`(y1 int)
+place_piece:
 BEGIN
-	declare  p_color char;
-	
-if(select s_color from board where x = x1 and y = y1)IS NULL THEN
-	select p_turn into  p_color FROM `game_status` WHERE `gameid` = id;
-	
+
+declare  p_color char;
+if(select s_color from board where x = 6 and y = y1)IS NULL THEN
+	select p_turn into  p_color FROM `game_status`;
+
 	update board
 	set s_color=p_color
-	where x=x1 and y=y1;
+	where x=6 and y=y1;
 	update game_status set p_turn=if(p_color='R','Y','R');
-END IF;	
+LEAVE place_piece;
+END IF;
 
-    END ;;
+if (select s_color from board where x = 5 and y = y1)IS NULL THEN
+	select p_turn into  p_color FROM `game_status`;
+
+	update board
+	set s_color=p_color
+	where x=5 and y=y1;
+	update game_status set p_turn=if(p_color='R','Y','R');
+LEAVE place_piece;
+END IF;
+
+if (select s_color from board where x = 4 and y = y1)IS NULL THEN
+	select p_turn into  p_color FROM `game_status`;
+
+	update board
+	set s_color=p_color
+	where x=4 and y=y1;
+	update game_status set p_turn=if(p_color='R','Y','R');
+LEAVE place_piece;
+END IF;
+
+if(select s_color from board where x = 3 and y = y1)IS NULL THEN
+	select p_turn into  p_color FROM `game_status`;
+
+	update board
+	set s_color=p_color
+	where x=3 and y=y1;
+	update game_status set p_turn=if(p_color='R','Y','R');
+LEAVE place_piece;
+END IF;
+
+if(select s_color from board where x = 2 and y = y1)IS NULL THEN
+	select p_turn into  p_color FROM `game_status`;
+
+	update board
+	set s_color=p_color
+	where x=2 and y=y1;
+	update game_status set p_turn=if(p_color='R','Y','R');
+LEAVE place_piece;
+END IF;
+
+if(select s_color from board where x = 1 and y = y1)IS NULL THEN
+	select p_turn into  p_color FROM `game_status`;
+
+	update board
+	set s_color=p_color
+	where x=1 and y=y1;
+	update game_status set p_turn=if(p_color='R','Y','R');
+LEAVE place_piece;
+END IF;
+
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -256,4 +282,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-25 22:24:39
+-- Dump completed on 2020-12-27  0:27:55
