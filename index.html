@@ -1,11 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello</title>
-</head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>ΑΔΙΣΕ: SCORE4</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    
+	<link href="css/score4.css" rel="stylesheet">
+	<script src="js/score4.js"></script>
+     </head>
+
+
 <body>
-    <h1>Hello</h1>
+<h1 style="margin-left: 100px;">SCORE4</h1>
+<div id='board' >
+</div>
+<br/>
+<div id='game_initializer'>
+<input id='username'> 
+<select id='Scolor'>
+<option value='Y'>Y</option>
+<option value='R'>R</option>
+</select>
+<button id='login' class='btn btn-primary'>ΕΙΣΟΔΟΣ ΣΤΟ ΠΑΙΧΝΙΔΙ</button><br>
+</div>
+<div id='game_info'>
+</div>
+<div id='move_div'>
+Δώσε κίνηση (x1 y1 x2 y2): <input id='the_move'>  <button id='do_move' class='btn btn-primary'>ΚΑΝΕ ΤΗΝ ΚΙΝΗΣΗ</button><br>
+<br><br>
+Δώσε κίνηση (x1 y1): <input id='the_move_src'> (x2 y2):
+<select id='the_move_dest'></select>
+<button id='do_move2' class='btn btn-primary'>ΚΑΝΕ ΤΗΝ ΚΙΝΗΣΗ 2</button><br>
+</div>
+
+<br/><br/>
+
+
+<button id='reset' class='btn btn-primary'>ΕΝΑΡΞΗ/RESET</button><br>
+
+
 </body>
 </html>
