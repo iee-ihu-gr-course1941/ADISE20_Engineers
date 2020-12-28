@@ -31,7 +31,7 @@ switch ($r=array_shift($request)) {
 			if(sizeof($request)==0) {show_status();}
 			else {header("HTTP/1.1 404 Not Found");}
 			break;
-	case 'players': handle_player($method, $request,$input);
+	case 'players': handle_player($method, $request, $input);
             break;
     default:  header("HTTP/1.1 404 Not Found");
                         exit;
