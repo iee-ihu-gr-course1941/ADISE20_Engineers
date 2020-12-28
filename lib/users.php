@@ -28,6 +28,7 @@ function set_user($b,$input) {
 		exit;
 	}
 	$username=$input['username'];
+	
 	global $mysqli;
 	$sql = 'select count(*) as c from players where s_color=? and username is not null';
 	$st = $mysqli->prepare($sql);
@@ -40,7 +41,7 @@ function set_user($b,$input) {
 		print json_encode(['errormesg'=>"Player $b is already set. Please select another color."]);
 		exit;
 	}
-	$sql = 'update players set username=?, token=md5(CONCAT( ?, NOW()))  where piece_color=?';
+	$sql = 'update players set username=?, token=md5(CONCAT( ?, NOW()))  where s_color=?';
 	$st2 = $mysqli->prepare($sql);
 	$st2->bind_param('sss',$username,$username,$b);
 	$st2->execute();
@@ -58,6 +59,7 @@ function set_user($b,$input) {
 	
 	
 }
+
 
 function handle_user($method, $s_color,$input) {
 	if($method=='GET') {
