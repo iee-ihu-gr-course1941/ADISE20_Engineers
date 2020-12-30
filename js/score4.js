@@ -23,7 +23,8 @@ function draw_empty_board() {
 	
 	
 	for(var i=1;i<=6;i++) {
-		t += '<tr id ='+ i +' onclick="do_move(this.id)">';
+		t += '<tr id = '+i+'>';
+		
 		for(var x=1;x<=7;x++) {
 			t += '<td class="chess_square" id="square_'+i+'_'+x+'">' + i +','+x+'</td>'; 
 		}
@@ -32,6 +33,7 @@ function draw_empty_board() {
 	t+='</table>';
 	
 	$('#board').html(t);
+	$('.chess_square').click(click_on_piece);
 	
 	
 }
@@ -57,15 +59,18 @@ function fill_board_by_data(data) {
 		var id = '#square_'+ o.x +'_' + o.y;
 		
 		var pc= (o.s_color!=null)?o.s_color:'';
-		var im = (o.s_color!=null)?'<img class="piece '+'" src="images/'+pc+'.jpg">':'';
+		var im = (o.s_color!=null)?'<img class="piece '+'" src="images/'+pc+'.png">':'';
 		$(id).addClass(o.s_color+'_square').html(im);
 	}
 
 }
 
+
+
 function login_to_game() {
 	if($('#username').val()=='') {
 		alert('You have to set a username');
+		
 		return;
 	}
 	var color = $('#Scolor').val();
@@ -92,7 +97,7 @@ function login_result(data) {
 	game_status_update();
 }
 
-function login_error(data,y,z,c) {
+function login_error(data) {
 	var x = data.responseJSON;
 	alert(x.errormesg);
 }
@@ -126,28 +131,48 @@ function update_status(data) {
 }
 
 function update_info(){
-	$('#game_info').html("I am Player: "+me.s_color+", my name is "+me.username +'<br>Token='+me.token+'<br>Game state: '+game_status.status+', '+ game_status.p_turn+' must play now.');
+	$('#game_info').html("I am Player: "+me.s_color+", my name is "+me.username +'<br>Token='+me.token+'<br>Game state: '+game_status.status+', '+'Player'+ game_status.p_turn+' must play now.');
 	
 	
 }
 
 function do_move( id ) {
-	
+
 
 	
     $.ajax({
-        url: "connect4.php/board/move/",
+        url: "index.php/board/place/",
         method: 'PUT',
         dataType: 'json',
         headers: { "X-Token": me.token },
         contentType: 'application/json',
-        data: JSON.stringify({ x: id, s_color: me.s_color }),
+        data: JSON.stringify({ id: id }),
         success: move_result,
         error: login_error
 	});
+	
 }
 
+function click_on_piece(e) {
+	
+	var o=e.target;
+	console.log(o)
+	if(o.tagName!='TD') {o=o.parentNode;}
+	if(o.tagName!='TD') {return;}
+	
+	var id=o.id;
+	var a=id.substr(id.length - 1);
+	console.log(a)
+	do_move(a);
+	
+	
+}
+
+
+
+
 function move_result(data){
+	
 	game_status_update();
 	fill_board_by_data(data);
 }
@@ -173,8 +198,4 @@ function update_moves_selector() {
 	}
 }
 
-function do_move2() {
-	$('#the_move').val($('#the_move_src').val() +' ' + $('#the_move_dest').val());
-	$('.chess_square').removeClass('pmove').removeClass('tomove');
-	do_move();
-}
+
