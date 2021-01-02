@@ -4,7 +4,8 @@ var board={};
 var pl={};
 var last_update=new Date().getTime();
 var timer=null;
-
+var timerc;
+var interval;
 $(function () {
 	draw_empty_board();
 	fill_board();
@@ -63,6 +64,7 @@ function fill_board_by_data(data) {
 		$(id).addClass(o.s_color+'_square').html(im);
 	}
 
+
 }
 
 
@@ -90,14 +92,20 @@ function login_to_game() {
 }
 
 function login_result(data) {
+	
 	me = data[0];
+	if(me.token==null){
+		alert('Username already exists')
+	}else{
 	console.log(me)
 	$('#game_initializer').hide();
 	update_info();
 	game_status_update();
 }
+}
 
 function login_error(data) {
+	
 	var x = data.responseJSON;
 	alert(x.errormesg);
 }
@@ -119,6 +127,10 @@ function update_status(data) {
 		// do play
 		if(game_stat_old.p_turn!=game_status.p_turn) {
 			fill_board();
+			clearInterval(interval);
+			clock();
+			var wait=setTimeout(function() { $('#clock').show()}, 1000);
+			
 		}
 		$('#move_div').show(1000);
 		timer=setTimeout(function() { game_status_update();}, 15000);
@@ -126,12 +138,16 @@ function update_status(data) {
 		// must wait for something
 		$('#move_div').hide(1000);
 		timer=setTimeout(function() { game_status_update();}, 6000);
+		clearInterval(interval);
+		$('#clock').hide();
+		
 	}
  	
 }
 
 function update_info(){
-	$('#game_info').html("I am Player: "+me.s_color+", my name is "+me.username +'<br>Token='+me.token+'<br>Game state: '+game_status.status+', '+'Player'+ game_status.p_turn+' must play now.');
+
+	$('#game_info').html("I am Player: "+me.s_color+", my name is "+me.username +'<br>Token='+me.token+'<br>Game state: '+game_status.status+', '+'Player '+ game_status.p_turn+' must play now.');
 	
 	
 }
@@ -172,30 +188,52 @@ function click_on_piece(e) {
 
 
 function move_result(data){
-	
-	game_status_update();
 	fill_board_by_data(data);
+	game_status_update();
+	
 }
 
-function update_moves_selector() {
-	$('.chess_square').removeClass('pmove').removeClass('tomove');
-	var s = $('#the_move_src').val();
-	var a = s.trim().split(/[ ]+/);
-	$('#the_move_dest').html('');
-	if(a.length!=2) {
-		return;
-	}
-	var id = '#square_'+ a[0]+'_'+a[1];
-	$(id).addClass('tomove');
-	for(i=0;i<board.length;i++) {
-		if(board[i].x==a[0] && board[i].y==a[1] && board[i].moves && Array.isArray(board[i].moves)) {
-			for(m=0;m<board[i].moves.length;m++) {
-				$('#the_move_dest').append('<option value="'+board[i].moves[m].x+' '+board[i].moves[m].y+'">'+board[i].moves[m].x+' '+board[i].moves[m].y+'</option>');
-				var id = '#square_'+ board[i].moves[m].x +'_' + board[i].moves[m].y;
-				$(id).addClass('pmove');
-			}
-		}
-	}
-}
 
+
+function clock(){
+	var minutes=4;
+	var seconds=60;
+var timer2 = "5:01";
+ interval = setInterval(function() {
+	
+	seconds--;
+	if(seconds==0 && minutes!=0){
+		minutes--;
+		seconds=60;
+		
+	}
+	else if(seconds==0 && minutes==0){
+		clearInterval(interval);
+		
+	}
+	else if(seconds==60){
+		$('#clock').html(minutes + ':' + '00');
+		
+	}
+	if(seconds!=60){
+	$('#clock').html(minutes + ':' + seconds);
+	}
+/*
+  var clock = timer2.split(':');
+  //by parsing integer, I avoid all extra string processing
+  var minutes = parseInt(clock[0], 10);
+  var seconds = parseInt(clock[1], 10);
+  --seconds;
+  minutes = (seconds < 0) ? --minutes : minutes;
+  if (minutes < 0) clearInterval(interval);
+  seconds = (seconds < 0) ? 59 : seconds;
+  seconds = (seconds < 10) ? '0' + seconds : seconds;
+  //minutes = (minutes < 10) ?  minutes : minutes;
+  $('#clock').html(minutes + ':' + seconds);
+  timer2 = minutes + ':' + seconds;*/
+
+
+
+}, 1000);
+}
 
