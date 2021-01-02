@@ -69,8 +69,9 @@ function update_game_status() {
 		case 2: $new_status='started'; 
 
 				if($status['p_turn']==null) {
+					$temp=str_shuffle('YR');
 					
-					$turn = 'Y';
+					$turn=substr($temp,-1);
 					
 				}
 				break;
