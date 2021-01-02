@@ -1,4 +1,4 @@
-#board TD {width: 3em; height:3em;border:hidden ;border-radius: 50%; background-color: blue;   z-index: -1;border-collapse: separate; border-spacing: 10em;}
+#board TD {width: 3em; height:3em;border:hidden ;border-radius: 50%; background-color:white;   z-index: -1;border-collapse: separate; border-spacing: 10em;}
 TD.B_square {background-color:#DDD;}
 TD.W_square {background-color:#FFF;}
 IMG.piece {width: 3em; height:3em;border:hidden ; border-collapse: separate;}
