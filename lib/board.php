@@ -55,6 +55,41 @@ function place_piece($column, $token)
 	
 	
 	
+
+	
+
+		
+function show_board()
+{
+	header('Content-type: application/json');
+	print json_encode(read_board(), JSON_PRETTY_PRINT);
+}
+
+function reset_board() {
+	global $mysqli;
+	$sql = 'call clean_board()';
+	$mysqli->query($sql);
+	
+}
+
+function read_board() {
+	global $mysqli;
+	$sql = 'select * from board';
+	$st = $mysqli->prepare($sql);
+	$st->execute();
+	$res = $st->get_result();
+	return($res->fetch_all(MYSQLI_ASSOC));
+}
+
+
+
+function convert_board(&$orig_board) {
+	$board=[];
+	foreach($orig_board as $i=>&$row) {
+		$board[$row['x']][$row['y']] = &$row;
+	} 
+	return($board);
+}
 function winner2($column, $token){
 	global $mysqli;
     $b1 = read_board();
@@ -69,22 +104,24 @@ function winner2($column, $token){
 	//katheta
 	
 	for($i=1;$i<=6;$i++){
-		if($b2[$i][$column]['s_color']=='Y'){
+		for($j=1;$j<=7;$j++){
+		if($b2[$i][$j]['s_color']=='Y'){
 			$yk++;
-				if($yk==4 &&$b2[$i-1][$column]['s_color']=='Y'&&$b2[$i-2][$column]['s_color']=='Y'&&$b2[$i-3][$column]['s_color']=='Y'){
+				if($yk==4 &&$b2[$i-1][$j]['s_color']=='Y'&&$b2[$i-2][$j]['s_color']=='Y'&&$b2[$i-3][$j]['s_color']=='Y'){
 					
 					$sql = "update game_status set status='ended', result= 'Y',p_turn=null where p_turn is not null and status='started'";
 					$st = $mysqli->prepare($sql);
 					$r = $st->execute();
 				}
 		}
-		else if($b2[$i][$column]['s_color']=='R'){
+		else if($b2[$i][$j]['s_color']=='R'){
 			$rk++;
-				if($rk==4 &&$b2[$i-1][$column]['s_color']=='Y'&&$b2[$i-2][$column]['s_color']=='Y'&&$b2[$i-3][$column]['s_color']=='Y'){
+				if($rk==4 &&$b2[$i-1][$j]['s_color']=='R'&&$b2[$i-2][$j]['s_color']=='R'&&$b2[$i-3][$j]['s_color']=='R'){
 					$sql = "update game_status set status='ended', result= 'R',p_turn=null where p_turn is not null and status='started'";
 					$st = $mysqli->prepare($sql);
 					$r = $st->execute();
 				}
+		}
 		}
 	}
 
@@ -185,41 +222,6 @@ for($i=1;$i<=6;$i++){
 	}
 	
 }
-	
-
-		
-function show_board()
-{
-	header('Content-type: application/json');
-	print json_encode(read_board(), JSON_PRETTY_PRINT);
-}
-
-function reset_board() {
-	global $mysqli;
-	$sql = 'call clean_board()';
-	$mysqli->query($sql);
-	
-}
-
-function read_board() {
-	global $mysqli;
-	$sql = 'select * from board';
-	$st = $mysqli->prepare($sql);
-	$st->execute();
-	$res = $st->get_result();
-	return($res->fetch_all(MYSQLI_ASSOC));
-}
-
-
-
-function convert_board(&$orig_board) {
-	$board=[];
-	foreach($orig_board as $i=>&$row) {
-		$board[$row['x']][$row['y']] = &$row;
-	} 
-	return($board);
-}
-
 
 
 
