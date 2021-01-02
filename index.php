@@ -21,7 +21,7 @@ switch ($r=array_shift($request)) {
                 case '':
                 case null: handle_board($method,$input);
                             break;
-                case 'place': handle_place($method, $request[0],$request[1],$input);
+                case 'place': handle_place($method,$input);
                             break;
                 default: header("HTTP/1.1 404 Not Found");
                             break;
@@ -33,6 +33,7 @@ switch ($r=array_shift($request)) {
 			break;
 	case 'players': handle_player($method, $request, $input);
             break;
+            
     default:  header("HTTP/1.1 404 Not Found");
                         exit;
 }
@@ -48,13 +49,16 @@ function handle_board($method,$input) {
 		
 }
 
-function handle_place($method, $x,$y,$input) {
+function handle_place($method, $input) {
 	if($method=='GET') {
-        show_piece($x,$y);
+       // show_piece(6,$input);
     } else if ($method=='PUT') {
-		place_piece($input);
+                place_piece($input['id'], $input['token']);
+               winner2($input['id'], $input['token']);
     }    
 }
+
+
  
 function handle_player($method, $request,$input) {
 	switch ($b=array_shift($request)) {
