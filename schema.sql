@@ -86,7 +86,7 @@ CREATE TABLE `game_status` (
 
 LOCK TABLES `game_status` WRITE;
 /*!40000 ALTER TABLE `game_status` DISABLE KEYS */;
-INSERT INTO `game_status` VALUES ('initialized',NULL,NULL,'2020-12-28 21:10:06');
+INSERT INTO `game_status` VALUES ('not active',NULL,NULL,'2021-01-02 15:28:05');
 /*!40000 ALTER TABLE `game_status` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -121,7 +121,8 @@ CREATE TABLE `players` (
   `s_color` enum('R','Y') COLLATE utf8_bin NOT NULL,
   `token` varchar(100) COLLATE utf8_bin DEFAULT NULL,
   `last_action` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`s_color`)
+  PRIMARY KEY (`s_color`),
+  UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -131,7 +132,7 @@ CREATE TABLE `players` (
 
 LOCK TABLES `players` WRITE;
 /*!40000 ALTER TABLE `players` DISABLE KEYS */;
-INSERT INTO `players` VALUES (NULL,'R',NULL,'2020-12-28 21:10:04'),('Dr','Y','e0c1d27b9855f254494dd24ab7cbffe0','2020-12-28 21:10:05');
+INSERT INTO `players` VALUES (NULL,'R',NULL,'2021-01-02 15:28:05'),(NULL,'Y',NULL,'2021-01-02 15:28:05');
 /*!40000 ALTER TABLE `players` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,4 +251,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-28 23:16:16
+-- Dump completed on 2021-01-03 14:55:57
