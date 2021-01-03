@@ -55,6 +55,7 @@ function handle_place($method, $input) {
     } else if ($method=='PUT') {
                 place_piece($input['id'], $input['token']);
                winner2($input['id'], $input['token']);
+               
     }    
 }
 
