@@ -1,17 +1,21 @@
 var me={username:null,token:null,s_color:null};
+var pc={username:null,token:null,s_color:null};
 var game_status={};
 var board={};
 var pl={};
 var last_update=new Date().getTime();
 var timer=null;
 var timerc;
+var timerpc;
 var interval;
+var opponnent;
 $(function () {
 	draw_empty_board();
 	fill_board();
-	
+	$('#player_login').hide();
 	$('#login').click( login_to_game);
 	$('#reset').click( reset_board);
+	$('#ap').click(login_to_game_AI);
 	$('#move_div').hide();
 	game_status_update();
 	
@@ -67,6 +71,42 @@ function fill_board_by_data(data) {
 
 }
 
+function login_to_game_AI() {
+	$('#player_login').show();
+	if($('#sl').val() == 'PC'){
+	var color = $('#Scolor').val();
+	draw_empty_board(color);
+	fill_board();
+	opponnent='PC';
+	if(color == 'Y'){
+		var colorPC = 'R';
+	}else{
+		var colorPC = 'Y';
+	}
+	
+	$.ajax({url: "index.php/players/" +color, 
+			method: 'PUT',
+			dataType: "json",
+			headers: {"X-Token": me.token},
+			contentType: 'application/json',
+			data: JSON.stringify( {username: $('#sl').val(), s_color: colorPC}),
+			success:login_PC,
+			error:login_error
+		});
+	}	
+	
+}
+
+function login_PC(data) {
+	
+	pc = data[0];
+	if(pc.token==null){
+		alert('Username already exists')
+	}else{
+	console.log(pc)
+	game_status_update();
+}
+}
 
 
 function login_to_game() {
@@ -85,10 +125,10 @@ function login_to_game() {
 			headers: {"X-Token": me.token},
 			contentType: 'application/json',
 			data: JSON.stringify( {username: $('#username').val(), s_color: color}),
-			
-			success: login_result,
-			error: login_error});
-			console.log($('#username').val(), color, )
+			success:login_result,
+			error:login_error
+
+			});
 }
 
 function login_result(data) {
@@ -140,6 +180,22 @@ function update_status(data) {
 		timer=setTimeout(function() { game_status_update();}, 6000);
 		clearInterval(interval);
 		$('#clock').hide();
+		timerpc = setTimeout(function(){if(opponnent == 'PC'){
+			if(opponnent='PC'){
+				$move=Math.floor((Math.random() * 7) + 1);
+				
+				$.ajax({
+					url: "index.php/board/place/",
+					method: 'PUT',
+					dataType: 'json',
+					headers: { "X-Token": pc.token },
+					contentType: 'application/json',
+					data: JSON.stringify({ id: $move }),
+					success: move_result
+					
+				});}
+		}}, 3000);
+		
 		
 	}
  	
@@ -166,6 +222,8 @@ function do_move( id ) {
         success: move_result,
         error: login_error
 	});
+
+	
 	
 }
 
@@ -190,6 +248,8 @@ function click_on_piece(e) {
 function move_result(data){
 	fill_board_by_data(data);
 	game_status_update();
+
+	
 	
 }
 
@@ -218,19 +278,6 @@ var timer2 = "5:01";
 	if(seconds!=60){
 	$('#clock').html(minutes + ':' + seconds);
 	}
-/*
-  var clock = timer2.split(':');
-  //by parsing integer, I avoid all extra string processing
-  var minutes = parseInt(clock[0], 10);
-  var seconds = parseInt(clock[1], 10);
-  --seconds;
-  minutes = (seconds < 0) ? --minutes : minutes;
-  if (minutes < 0) clearInterval(interval);
-  seconds = (seconds < 0) ? 59 : seconds;
-  seconds = (seconds < 10) ? '0' + seconds : seconds;
-  //minutes = (minutes < 10) ?  minutes : minutes;
-  $('#clock').html(minutes + ':' + seconds);
-  timer2 = minutes + ':' + seconds;*/
 
 
 
