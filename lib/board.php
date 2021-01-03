@@ -166,7 +166,7 @@ for($i=1;$i<=6;$i++){
 	}
 	else if($b2[$i][$j]['s_color']=='R'){
 	
-			if($b2[$i][$j-1]['s_color']=='R'&&$b2[$i][$j-2]['s_color']=='R'&&$b2[$i][$j-3]['s_color']=='R'`) {
+			if($b2[$i][$j-1]['s_color']=='R'&&$b2[$i][$j-2]['s_color']=='R'&&$b2[$i][$j-3]['s_color']=='R') {
 				$sql = "update game_status set status='ended', result= 'R',p_turn=null where p_turn is not null and status='started'";
 				$st = $mysqli->prepare($sql);
 				$r = $st->execute();
