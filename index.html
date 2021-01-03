@@ -19,39 +19,80 @@
      </head>
 
 
-<body>
-    <div style="position: fixed; margin-left: 00px;">
-<h1 style="margin-left: 100px;">SCORE4</h1>
-<div id='board'  style="margin-left: 10px; border-spacing: 10px !important;border-radius: 50%;border-collapse: separate;">
-</div>
-<br/>
-<div id='player_login'>
-<div id='game_initializer'>
-<input id='username'> 
-<select id='Scolor'>
-<option value='Y'>Y</option>
-<option value='R'>R</option>
-</select>
-<button id='login' class='btn btn-primary'>ΕΙΣΟΔΟΣ ΣΤΟ ΠΑΙΧΝΙΔΙ</button><br>
-</div>
-<div id='game_info' style="font-size: medium; font-weight:500">
-</div>
-<div id='move_div' style="font-size: medium; font-weight:500; color:blue;">
-    <p>Your turn</p>
-</div>
-</div>
-
-<br/><br/>
-<select id="sl">
-    <option value="PLAYER">PLAYER</option>
-    <option value="PC">PC</option>
-</select>
-<button id='ap' class='btn btn-primary'>ΟΡΙΣΜΟΣ</button><br>
-
-<button id='reset' class='btn btn-primary'>ΕΝΑΡΞΗ/RESET</button><br>
-
-<div id="clock"></div>
-</div>
-</body>
+     <body>
+        <div class="d-flex" id="wrapper">
+        <div class="row text-right">
+        <div class="col-lg-4 bg-light">
+            	
+                <div class="bg-light border-right " id="sidebar-wrapper">
+                    
+                          <div class="list-group list-group-flush">
+                            <a href="#" class="list-group-item list-group-item-action bg-light">
+                                <div class="sidebar-heading text-center">
+                                    <h1>Score 4</h1>
+                                </div>
+                              </a>
+                              <a href="#" class="list-group-item list-group-item-action bg-light">
+                                  <select id="sl">
+                                    <option value="PLAYER">PLAYER</option>
+                                    <option value="PC">PC</option>
+                                </select>
+                                <button id='ap' class='btn btn-secondary  btn-md'>Play</button>
+                            </a>
+        
+                            <a href="#" class="list-group-item list-group-item-action bg-light">
+                                <div id='player_login'>
+                                   <div id='game_initializer'>
+                                    <input id='username' type="text" placeholder="username"> 
+                                    <select id='Scolor'>
+                                        <option value='Y'>Y</option>
+                                        <option value='R'>R</option>
+                                    </select>
+                                    <button id='login' class='btn btn-secondary  btn-md'>Login</button><br>
+                                </div>
+                            </div>
+                            </a>
+                            
+                            <a href="#" class="list-group-item list-group-item-action bg-light">
+                                <div id='game_info' style="font-size: medium; font-weight:500;"></div>
+                                <div id='name' style="text-align: left;font-size: small;" ></div><br>
+                                <div id='color'style="text-align: left; font-size: small;"></div><br>
+                                <div id='token'style="text-align: left;font-size: small;"></div><br>
+                                <div id='game_state'style="text-align: left;font-size: small;"></div><br>
+                                <div id='turn'style="text-align: left;font-size: small;"></div>
+                               
+                            </a>
+                            
+                                <a href="#" class="list-group-item list-group-item-action bg-light">
+                                    <div id='move_div' style="font-size: medium; font-weight:500; color:white;">
+                                    <p>Your turn</p>
+                                </div>
+                            </a>
+                            
+                            <a href="#" class="list-group-item list-group-item-action bg-light">
+                                <div id="clock">00:00</div>
+                            </a>
+                            
+                              <a href="#" class="list-group-item list-group-item-action bg-light">
+                                  <button id='reset' class='btn btn-secondary btn-md'>Reset</button>
+                              </a>
+              </div>
+            </div>
+        </div>
+        
+        
+        
+            </div>
+            
+            <div class="col-lg-6" >
+                
+                <div id='board'>
+                    
+                </div>
+            </div>
+        </div>
+        
+        
+        </body>
 
 </html>
