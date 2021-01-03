@@ -16,7 +16,7 @@ $(function () {
 	$('#login').click( login_to_game);
 	$('#reset').click( reset_board);
 	$('#ap').click(login_to_game_AI);
-	$('#move_div').hide();
+
 	game_status_update();
 	
 });
@@ -52,7 +52,7 @@ function fill_board() {
 
 function reset_board() {
 	$.ajax({url: "index.php/board/", headers: {"X-Token": me.token}, method: 'POST',  success: fill_board_by_data });
-	$('#move_div').hide();
+	$('#move_div').css("color","white");
 	$('#game_initializer').show(2000);
 	$('#username').val('');
 	me={username:null,token:null,s_color:null}
@@ -172,11 +172,11 @@ function update_status(data) {
 			var wait=setTimeout(function() { $('#clock').show()}, 1000);
 			
 		}
-		$('#move_div').show(1000);
+		$('#move_div').css("color","red");
 		timer=setTimeout(function() { game_status_update();}, 15000);
 	} else {
 		// must wait for something
-		$('#move_div').hide(1000);
+		$('#move_div').css("color","white");
 		timer=setTimeout(function() { game_status_update();}, 6000);
 		clearInterval(interval);
 		$('#clock').hide();
@@ -203,9 +203,11 @@ function update_status(data) {
 
 function update_info(){
 
-	$('#game_info').html("I am Player: "+me.s_color+", my name is "+me.username +'<br>Token='+me.token+'<br>Game state: '+game_status.status+', '+'Player '+ game_status.p_turn+' must play now.');
-	
-	
+	$('#name').html("My name : "+ me.username);
+	$('#color').html("My color : "+ me.s_color);
+	$('#token').html("My token : "+ me.token);
+	$('#game_state').html("Game status : "+ game_status.status);
+	$('#turn').html("Player: "+game_status.p_turn+" must play now")
 }
 
 function do_move( id ) {
