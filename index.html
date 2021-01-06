@@ -20,9 +20,11 @@
 
 
      <body>
+       
+         
         <div class="d-flex" id="wrapper">
-        <div class="row text-right">
-        <div class="col-lg-4 bg-light">
+        <div class="row text-right" id="menu">
+        <div >
             	
                 <div class="bg-light border-right " id="sidebar-wrapper">
                     
@@ -62,7 +64,10 @@
                                 <div id='turn'style="text-align: left;font-size: small;"></div>
                                
                             </a>
-                            
+                            <a href="#" class="list-group-item list-group-item-action bg-light">
+                                <button id='reset' class='btn btn-secondary btn-md'>Reset</button>
+                                <button id='rules' class='btn btn-secondary btn-md'>Rules</button>
+                            </a>
                                 <a href="#" class="list-group-item list-group-item-action bg-light">
                                     <div id='move_div' style="font-size: medium; font-weight:500; color:white;">
                                     <p>Your turn</p>
@@ -73,9 +78,9 @@
                                 <div id="clock">00:00</div>
                             </a>
                             
-                              <a href="#" class="list-group-item list-group-item-action bg-light">
-                                  <button id='reset' class='btn btn-secondary btn-md'>Reset</button>
-                              </a>
+                              
+
+                             
               </div>
             </div>
         </div>
@@ -84,9 +89,31 @@
         
             </div>
             
-            <div class="col-lg-6" >
-                
-                <div id='board'>
+            <div class="col-lg-12" >
+
+                <div id='winner' class=""><p> </p></div>
+                <div class="box stack-top" style=" min-height: auto; height: auto;" id="rulesp">
+                    <div class="container p-3 my-3 bg-secondary text-white">
+        
+                      <br>
+                      <br>
+                      <h1>Tο Score 4 είναι ένα παιχνίδι δύο ατόμων.</h1>  <button id='synexeia' class="btn btn-success" style="position:absolute; top:5%;right:25%">Συνέχεια</button>
+        
+                      <br>
+                      <br>
+                      <br>
+                      <p>Το  Score 4 σου επιτρέπει να αναπτύξεις τις στρατηγικές σου ικανότητες 
+                          <br>και να κερδίσεις τον αντίπαλο, σχηματίζοντας μια σειρά από 4 μάρκες ίδιου χρώματος
+                          <br>
+                          - Κάθε παίκτης παίρνει με τη σειρά ένα δίσκο και το τοθετεί σε μια θέση ώστε να σχηματιστεί είτε <br> μια κάθετη, διαγώνια ή οριζόντια γραμμή.
+                         <br>
+                          - Ο νικητής είναι ο πρώτος που θα σχηματίσει τέσσερις δίσκους του ίδιου χρώματος σε μια σειρά.</p><br>
+                      <img src="\images\katheta.png" class="img-thumbnail" alt="κάθετα" width="304" height="236"> 
+                      <img src="\images\orizontia.png" class="img-thumbnail" alt="οριζόντια" width="304" height="236"> 
+                      <img src="\images\diagvnia.png" class="img-thumbnail" alt="διαγώνια" width="304" height="236"> 
+                          </div>
+                  </div>
+                <div id='board' style="z-index: -1;">
                     
                 </div>
             </div>
