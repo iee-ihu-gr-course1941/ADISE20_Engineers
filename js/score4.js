@@ -196,7 +196,7 @@ function update_status(data) {
 		// must wait for something
 		$('#move_div').css("color","white");
 		if(game_status.status=='ended' && end==false){
-			$('#winner').html('Player: '+previousplayer+' won');
+			$('#winner').html('Player: '+game_status.result+' won');
 			end=true;
 		}else if(game_status.status=='aborded' && end==false){
 			$('#winner').html("Game aborded");
