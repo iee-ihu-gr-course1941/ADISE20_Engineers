@@ -1,7 +1,7 @@
 body{
 	background-color:#C0C0C0
 }
-#board TD {width: 5em; height:5em;border:hidden ;border-radius: 50%; background-color:#C0C0C0;   z-index: -1;border-collapse: separate; border-spacing: 10em;}
+#board TD {width: 5em; height:5em;border:hidden ;border-radius: 50%; background-color:#C0C0C0;  border-collapse: separate; border-spacing: 10em; }
 
 button{ color:gray
 }
@@ -10,10 +10,13 @@ background-color:white
 }
 TD.B_square {background-color:#DDD;}
 TD.W_square {background-color:#FFF;}
-IMG.piece {width: 5em; height:5em;border:hidden ; border-collapse: separate;}
+IMG.piece {width: 4.8em; height:4.8em;border:hidden ; border-collapse: separate;}
 
-
-table{background-color:#996633;}
+.stack-top{
+  z-index: 9;
+  margin: 20px; 
+}
+table{background-color:#996633; position: relative; margin-left: 10%; margin-top: 4%;}
 input{
 	position:relative;
 	width:40%;
@@ -32,8 +35,20 @@ select{
 h1{
 	color:black
 }
+
+#menu{
+  height: 100%;
+  min-height: 100%;
+  
+
+}
+
+#winner{
+  background-color: white;
+}
 #wrapper {
-    overflow-x: hidden; }
+    overflow-x: hidden; 
+    }
 
   
 
