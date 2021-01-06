@@ -9,6 +9,8 @@ var timerc;
 var timerpc;
 var interval;
 var opponnent;
+var previousplayer;
+var end=false;
 $(function () {
 	draw_empty_board();
 	fill_board();
@@ -16,11 +18,21 @@ $(function () {
 	$('#login').click( login_to_game);
 	$('#reset').click( reset_board);
 	$('#ap').click(login_to_game_AI);
-
+	$('#rulesp').hide();
 	game_status_update();
-	
+	$('#rules').click(show_rules);
+	$('#synexeia').click(hide_rules);
 });
 
+function show_rules(){
+	$('#rulesp').show();
+	$('#board').hide();
+}
+
+function hide_rules(){
+	$('#rulesp').hide();
+	$('#board').show();
+}
 
 function draw_empty_board() {
 	
@@ -56,6 +68,9 @@ function reset_board() {
 	$('#game_initializer').show(2000);
 	$('#username').val('');
 	me={username:null,token:null,s_color:null}
+	end=false;
+	$('#winner').html('');
+
 }
 function fill_board_by_data(data) {
 	board=data;
@@ -78,13 +93,16 @@ function login_to_game_AI() {
 	draw_empty_board(color);
 	fill_board();
 	opponnent='PC';
-	if(color == 'Y'){
-		var colorPC = 'R';
-	}else{
-		var colorPC = 'Y';
+	var colorPC
+	var temp=Math.floor((Math.random() * 2) + 1);
+	console.log(temp)
+	if(temp==1){
+		colorPC='Y';
+	}else if(temp==2){
+		colorPC='R';
 	}
-	
-	$.ajax({url: "index.php/players/" +color, 
+	console.log(colorPC)
+	$.ajax({url: "index.php/players/" +colorPC, 
 			method: 'PUT',
 			dataType: "json",
 			headers: {"X-Token": me.token},
@@ -177,13 +195,23 @@ function update_status(data) {
 	} else {
 		// must wait for something
 		$('#move_div').css("color","white");
+		if(game_status.status=='ended' && end==false){
+			$('#winner').html('Player: '+previousplayer+' won');
+			end=true;
+		}else if(game_status.status=='aborded' && end==false){
+			$('#winner').html("Game aborded");
+			end=true;
+		}else if(game_status.result=='D'&& end==false){
+			$('#winner').html('The match is Draw');
+			end=true;
+		}
 		timer=setTimeout(function() { game_status_update();}, 6000);
 		clearInterval(interval);
 		$('#clock').hide();
 		timerpc = setTimeout(function(){if(opponnent == 'PC'){
-			if(opponnent='PC'){
+			if(opponnent=='PC'){
 				$move=Math.floor((Math.random() * 7) + 1);
-				
+				previousplayer=game_status.p_turn;
 				$.ajax({
 					url: "index.php/board/place/",
 					method: 'PUT',
@@ -208,10 +236,11 @@ function update_info(){
 	$('#token').html("My token : "+ me.token);
 	$('#game_state').html("Game status : "+ game_status.status);
 	$('#turn').html("Player: "+game_status.p_turn+" must play now")
+	
 }
 
 function do_move( id ) {
-
+previousplayer=game_status.p_turn;
 
 	
     $.ajax({
@@ -250,7 +279,7 @@ function click_on_piece(e) {
 function move_result(data){
 	fill_board_by_data(data);
 	game_status_update();
-
+	
 	
 	
 }
