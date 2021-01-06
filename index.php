@@ -44,7 +44,7 @@ function handle_board($method,$input) {
                 show_board($input);
         } else if ($method=='POST') {
                 reset_board();
-				show_board($input);
+		show_board($input);
         }
 		
 }
